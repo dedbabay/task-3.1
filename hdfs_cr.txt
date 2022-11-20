@@ -1,0 +1,105 @@
+[cloudera@quickstart ~]$ pwd
+/home/cloudera
+[cloudera@quickstart ~]$ ls
+1                 Downloads                   lib       Templates
+cloudera-manager  eclipse                     Music     tolstoy
+cm_api.py         enterprise-deployment.json  parcels   Videos
+Desktop           express-deployment.json     Pictures  workspace
+Documents         kerberos                    Public
+[cloudera@quickstart ~]$ cd tolstoy/
+[cloudera@quickstart tolstoy]$ ls
+vim1.txt  vim2.txt  vim3.txt  vim4.txt
+[cloudera@quickstart tolstoy]$ hdfs dfs -copyFromLoca vim1.txt /user/cloudera
+-copyFromLoca: Unknown command
+[cloudera@quickstart tolstoy]$ hdfs dfs -copyFromLocal vim1.txt /user/cloudera
+[cloudera@quickstart tolstoy]$ hfdf dfs -ls
+bash: hfdf: command not found
+[cloudera@quickstart tolstoy]$ hfds dfs -ls
+bash: hfds: command not found
+[cloudera@quickstart tolstoy]$ cd..
+bash: cd..: command not found
+[cloudera@quickstart tolstoy]$ cd ..
+[cloudera@quickstart ~]$ hdfs dfs -ls
+^[OF
+Found 1 items
+-rw-r--r--   1 cloudera cloudera     736519 2022-11-20 06:25 vim1.txt
+[cloudera@quickstart ~]$ 
+[cloudera@quickstart ~]$ cd tolstoy/
+[cloudera@quickstart tolstoy]$ hdfs dfs -copyFromLocal vim2.txt /user/cloudera
+[cloudera@quickstart tolstoy]$ hdfs dfs -copyFromLocal *.txt /user/cloudera
+copyFromLocal: `/user/cloudera/vim1.txt': File exists
+copyFromLocal: `/user/cloudera/vim2.txt': File exists
+[cloudera@quickstart tolstoy]$ cd ..
+[cloudera@quickstart ~]$ hsdf dfs -ls
+bash: hsdf: command not found
+[cloudera@quickstart ~]$ hdfs dfs -ls
+Found 4 items
+-rw-r--r--   1 cloudera cloudera     736519 2022-11-20 06:25 vim1.txt
+-rw-r--r--   1 cloudera cloudera     770324 2022-11-20 06:31 vim2.txt
+-rw-r--r--   1 cloudera cloudera     843205 2022-11-20 06:32 vim3.txt
+-rw-r--r--   1 cloudera cloudera     697960 2022-11-20 06:32 vim4.txt
+[cloudera@quickstart ~]$ ^C
+[cloudera@quickstart ~]$ 
+[cloudera@quickstart ~]$ hdfs dfs -dw
+-dw: Unknown command
+[cloudera@quickstart ~]$ hdfs dfs -du vim1.txt
+736519  736519  vim1.txt
+[cloudera@quickstart ~]$ hdfs dfs -getmerge *.* vimA.txt
+getmerge: `cm_api.py': No such file or directory
+getmerge: `enterprise-deployment.json': No such file or directory
+getmerge: `express-deployment.json': No such file or directory
+[cloudera@quickstart ~]$ hdfs dfs -getMerge *.* vimA.txt
+-getMerge: Unknown command
+[cloudera@quickstart ~]$ cat *.txt > vimA.txt
+cat: *.txt: No such file or directory
+[cloudera@quickstart ~]$ cd tolstoy/
+[cloudera@quickstart tolstoy]$ hdfs dfs -getmerge *.* vimA.txt
+[cloudera@quickstart tolstoy]$ ls
+vim1.txt  vim2.txt  vim3.txt  vim4.txt  vimA.txt
+[cloudera@quickstart tolstoy]$ hdfs dfs -du
+736519  736519  vim1.txt
+770324  770324  vim2.txt
+843205  843205  vim3.txt
+697960  697960  vim4.txt
+[cloudera@quickstart tolstoy]$ ls
+vim1.txt  vim2.txt  vim3.txt  vim4.txt  vimA.txt
+[cloudera@quickstart tolstoy]$ hdfs dfs ^C
+[cloudera@quickstart tolstoy]$ hdfs dfs -copyFromLocal vimA.txt /user/cloudera
+[cloudera@quickstart tolstoy]$ hdfs dfs -ls
+Found 5 items
+-rw-r--r--   1 cloudera cloudera     736519 2022-11-20 06:25 vim1.txt
+-rw-r--r--   1 cloudera cloudera     770324 2022-11-20 06:31 vim2.txt
+-rw-r--r--   1 cloudera cloudera     843205 2022-11-20 06:32 vim3.txt
+-rw-r--r--   1 cloudera cloudera     697960 2022-11-20 06:32 vim4.txt
+-rw-r--r--   1 cloudera cloudera    3048008 2022-11-20 06:52 vimA.txt
+[cloudera@quickstart tolstoy]$ hdfs dfs -chmod 764 vimA.txt
+[cloudera@quickstart tolstoy]$ hdfs dfs -ls
+Found 5 items
+-rw-r--r--   1 cloudera cloudera     736519 2022-11-20 06:25 vim1.txt
+-rw-r--r--   1 cloudera cloudera     770324 2022-11-20 06:31 vim2.txt
+-rw-r--r--   1 cloudera cloudera     843205 2022-11-20 06:32 vim3.txt
+-rw-r--r--   1 cloudera cloudera     697960 2022-11-20 06:32 vim4.txt
+-rwxrw-r--   1 cloudera cloudera    3048008 2022-11-20 06:52 vimA.txt
+[cloudera@quickstart tolstoy]$ hdfs dfs -du vimA.txt
+3048008  3048008  vimA.txt
+[cloudera@quickstart tolstoy]$ hdfs dfs -du -h vimA.txt
+2.9 M  2.9 M  vimA.txt
+[cloudera@quickstart tolstoy]$ hdfs dfs -setrep -w 2 vimA.txt
+Replication 2 set: vimA.txt
+Waiting for vimA.txt ......................................................................................................................................................................................................................................................................................................................................................................................
+
+^C[cloudera@quickstart tolstoy]$ 
+[cloudera@quickstart tolstoy]$ hdfs dfs -du -h vimA.txt
+2.9 M  5.8 M  vimA.txt
+[cloudera@quickstart tolstoy]$ wc -l vimA.txt
+10272 vimA.txt
+[cloudera@quickstart tolstoy]$ hdfs fs cat vimA.txt | wc -l
+Error: Could not find or load main class fs
+0
+[cloudera@quickstart tolstoy]$ hdfs dfs cat vimA.txt | wc -l
+cat: Unknown command
+Did you mean -cat?  This command begins with a dash.
+0
+[cloudera@quickstart tolstoy]$ hdfs dfs -cat vimA.txt | wc -l
+10272
+[cloudera@quickstart tolstoy]$ 
